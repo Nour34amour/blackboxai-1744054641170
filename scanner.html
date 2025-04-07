@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Scanner | 2ReGreen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-green-50">
+    <header class="bg-green-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">2ReGreen</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="index.html" class="hover:underline"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="app-settings.html" class="hover:underline"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4">
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Plant Health Scanner</h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="text-center mb-6">
+                    <div class="mx-auto w-64 h-64 bg-gray-200 rounded-lg flex items-center justify-center mb-4" id="previewContainer">
+                        <i class="fas fa-camera text-4xl text-gray-400" id="cameraIcon"></i>
+                        <img id="imagePreview" class="hidden w-full h-full object-cover rounded-lg">
+                    </div>
+                    
+                    <div class="flex justify-center space-x-4">
+                        <label class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 cursor-pointer">
+                            <i class="fas fa-camera mr-2"></i> Take Photo
+                            <input type="file" accept="image/*" capture="environment" class="hidden" id="cameraInput">
+                        </label>
+                        <label class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer">
+                            <i class="fas fa-upload mr-2"></i> Upload
+                            <input type="file" accept="image/*" class="hidden" id="uploadInput">
+                        </label>
+                    </div>
+                </div>
+
+                <div id="scanResults" class="hidden">
+                    <h3 class="text-lg font-semibold mb-3 border-b pb-2">Scan Results</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <h4 class="font-medium mb-2"><i class="fas fa-leaf mr-2 text-green-600"></i>Plant Identification</h4>
+                            <p id="plantName" class="font-semibold">Tomato Plant</p>
+                            <p id="plantHealth" class="text-sm">Health: <span class="font-medium text-green-600">Good</span></p>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 rounded-lg">
+                            <h4 class="font-medium mb-2"><i class="fas fa-tint mr-2 text-blue-600"></i>Watering Advice</h4>
+                            <p id="waterAdvice">Water every 2-3 days, keeping soil consistently moist but not soggy.</p>
+                        </div>
+                        
+                        <div class="p-4 bg-yellow-50 rounded-lg">
+                            <h4 class="font-medium mb-2"><i class="fas fa-seedling mr-2 text-yellow-600"></i>Fertilizer Recommendation</h4>
+                            <p id="fertilizerAdvice">Use a balanced fertilizer (10-10-10) every 2 weeks during growing season.</p>
+                        </div>
+                        
+                        <div class="p-4 bg-purple-50 rounded-lg">
+                            <h4 class="font-medium mb-2"><i class="fas fa-sun mr-2 text-purple-600"></i>Sunlight Needs</h4>
+                            <p id="sunlightAdvice">6-8 hours of direct sunlight daily. Rotate plant for even growth.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-white border rounded-lg">
+                        <h4 class="font-medium mb-2"><i class="fas fa-lightbulb mr-2 text-orange-500"></i>Small Space Growing Tip</h4>
+                        <p id="spaceTip">Grow in 5-gallon buckets or hanging planters to save space. Prune suckers regularly.</p>
+                    </div>
+                </div>
+
+                <div id="samplePlants" class="mt-6">
+                    <h3 class="text-lg font-semibold mb-3">Try Scanning These Common Plants:</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <div class="cursor-pointer" onclick="useSampleImage('tomato')">
+                            <img src="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg" class="w-full h-24 object-cover rounded">
+                            <p class="text-center text-sm mt-1">Tomato</p>
+                        </div>
+                        <div class="cursor-pointer" onclick="useSampleImage('basil')">
+                            <img src="https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg" class="w-full h-24 object-cover rounded">
+                            <p class="text-center text-sm mt-1">Basil</p>
+                        </div>
+                        <div class="cursor-pointer" onclick="useSampleImage('strawberry')">
+                            <img src="https://images.pexels.com/photos/162157/fruits-strawberry-fruit-162157.jpeg" class="w-full h-24 object-cover rounded">
+                            <p class="text-center text-sm mt-1">Strawberry</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-green-600 text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>© 2023 2ReGreen - Sustainable Living App</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample plant data for mock scanning
+        const plantDatabase = {
+            tomato: {
+                name: "Tomato Plant",
+                health: "Good",
+                water: "Water every 2-3 days, keeping soil consistently moist but not soggy.",
+                fertilizer: "Use a balanced fertilizer (10-10-10) every 2 weeks during growing season.",
+                sunlight: "6-8 hours of direct sunlight daily. Rotate plant for even growth.",
+                spaceTip: "Grow in 5-gallon buckets or hanging planters to save space. Prune suckers regularly."
+            },
+            basil: {
+                name: "Basil Plant",
+                health: "Excellent",
+                water: "Water when top inch of soil is dry. Avoid wetting leaves.",
+                fertilizer: "Use diluted liquid fertilizer every 3-4 weeks.",
+                sunlight: "4-6 hours of sunlight daily. Can tolerate partial shade.",
+                spaceTip: "Perfect for windowsill gardens. Pinch flowers to prolong leaf production."
+            },
+            strawberry: {
+                name: "Strawberry Plant",
+                health: "Needs Attention",
+                water: "Keep soil moist. Water at base to prevent fruit rot.",
+                fertilizer: "Use potassium-rich fertilizer when flowering begins.",
+                sunlight: "6-10 hours of sunlight daily for best fruiting.",
+                spaceTip: "Grow in vertical planters or hanging baskets to maximize yield."
+            }
+        };
+
+        // Handle file inputs
+        document.getElementById('cameraInput').addEventListener('change', handleImageUpload);
+        document.getElementById('uploadInput').addEventListener('change', handleImageUpload);
+
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = event.target.result;
+                preview.classList.remove('hidden');
+                document.getElementById('cameraIcon').classList.add('hidden');
+                
+                // Mock scan after 1.5 seconds
+                setTimeout(mockScan, 1500);
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function mockScan() {
+            // In a real app, this would call an ML API
+            // For demo, we'll randomly pick a plant result
+            const plants = Object.keys(plantDatabase);
+            const randomPlant = plants[Math.floor(Math.random() * plants.length)];
+            displayResults(plantDatabase[randomPlant]);
+        }
+
+        function displayResults(plantData) {
+            document.getElementById('plantName').textContent = plantData.name;
+            document.getElementById('plantHealth').innerHTML = `Health: <span class="font-medium ${plantData.health === 'Good' || plantData.health === 'Excellent' ? 'text-green-600' : 'text-yellow-600'}">${plantData.health}</span>`;
+            document.getElementById('waterAdvice').textContent = plantData.water;
+            document.getElementById('fertilizerAdvice').textContent = plantData.fertilizer;
+            document.getElementById('sunlightAdvice').textContent = plantData.sunlight;
+            document.getElementById('spaceTip').textContent = plantData.spaceTip;
+            
+            document.getElementById('scanResults').classList.remove('hidden');
+            document.getElementById('samplePlants').classList.add('hidden');
+        }
+
+        function useSampleImage(plantType) {
+            const preview = document.getElementById('imagePreview');
+            preview.src = document.querySelector(`[onclick="useSampleImage('${plantType}')"] img`).src;
+            preview.classList.remove('hidden');
+            document.getElementById('cameraIcon').classList.add('hidden');
+            
+            // Show results for the selected sample
+            setTimeout(() => displayResults(plantDatabase[plantType]), 1500);
+        }
+    </script>
+</body>
+</html>
