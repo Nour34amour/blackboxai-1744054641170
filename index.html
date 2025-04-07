@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2ReGreen - Organic Fertilizer App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+    <header class="bg-green-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">2ReGreen</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="index.html" class="hover:underline"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="app-settings.html" class="hover:underline"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4">
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Welcome to 2ReGreen</h2>
+            <p class="mb-4">Transform your kitchen waste into organic fertilizer and grow healthy plants at home.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="converter.html" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-green-500 mb-2"><i class="fas fa-recycle text-4xl"></i></div>
+                    <h3 class="font-semibold">Fertilizer Converter</h3>
+                    <p class="text-sm text-gray-600">Convert peels and leftovers into organic fertilizer</p>
+                </a>
+                
+                <a href="guides.html" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-green-500 mb-2"><i class="fas fa-seedling text-4xl"></i></div>
+                    <h3 class="font-semibold">Growing Guides</h3>
+                    <p class="text-sm text-gray-600">Learn how to grow various plants at home</p>
+                </a>
+                
+                <a href="scanner.html" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-green-500 mb-2"><i class="fas fa-camera text-4xl"></i></div>
+                    <h3 class="font-semibold">Plant Scanner</h3>
+                    <p class="text-sm text-gray-600">Get plant care advice with our scanner</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-green-600 text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>© 2023 2ReGreen - Sustainable Living App</p>
+        </div>
+    </footer>
+</body>
+</html>
