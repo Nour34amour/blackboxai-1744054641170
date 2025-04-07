@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growing Guides | 2ReGreen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .plant-card {
+            transition: transform 0.3s ease;
+        }
+        .plant-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+    <header class="bg-green-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">2ReGreen</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="index.html" class="hover:underline"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="app-settings.html" class="hover:underline"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4">
+        <section class="mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold">Plant Growing Guides</h2>
+                <div class="relative w-64">
+                    <input type="text" placeholder="Search plants..." class="w-full p-2 pl-8 border rounded" id="searchInput">
+                    <i class="fas fa-search absolute left-2 top-3 text-gray-400"></i>
+                </div>
+            </div>
+
+            <div class="mb-6 p-4 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold mb-2">Small Space Gardening Tips</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-3 bg-green-100 rounded">
+                        <h4 class="font-medium"><i class="fas fa-arrow-up mr-2"></i>Vertical Gardening</h4>
+                        <p class="text-sm">Use trellises, hanging planters, or wall-mounted containers to maximize vertical space.</p>
+                    </div>
+                    <div class="p-3 bg-green-100 rounded">
+                        <h4 class="font-medium"><i class="fas fa-box mr-2"></i>Container Gardening</h4>
+                        <p class="text-sm">Grow plants in pots, buckets, or recycled containers on balconies or windowsills.</p>
+                    </div>
+                    <div class="p-3 bg-green-100 rounded">
+                        <h4 class="font-medium"><i class="fas fa-calendar-alt mr-2"></i>Succession Planting</h4>
+                        <p class="text-sm">Plant quick-growing crops after harvesting to maximize yield from small spaces.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="plantsContainer">
+                <!-- Plant cards will be inserted here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-green-600 text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>© 2023 2ReGreen - Sustainable Living App</p>
+        </div>
+    </footer>
+
+    <script>
+        const plants = [
+            {
+                name: "Tomatoes",
+                type: "vegetable",
+                difficulty: "medium",
+                image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg",
+                guide: {
+                    soil: "Well-draining, rich in organic matter",
+                    sunlight: "6-8 hours daily",
+                    water: "Keep soil consistently moist",
+                    fertilizer: "High in phosphorus",
+                    harvest: "60-80 days after planting"
+                }
+            },
+            {
+                name: "Basil",
+                type: "herb",
+                difficulty: "easy",
+                image: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg",
+                guide: {
+                    soil: "Light, well-draining",
+                    sunlight: "4-6 hours daily",
+                    water: "When top inch of soil is dry",
+                    fertilizer: "Balanced, every 2-3 weeks",
+                    harvest: "Pinch leaves as needed"
+                }
+            },
+            {
+                name: "Strawberries",
+                type: "fruit",
+                difficulty: "medium",
+                image: "https://images.pexels.com/photos/162157/fruits-strawberry-fruit-162157.jpeg",
+                guide: {
+                    soil: "Slightly acidic, well-draining",
+                    sunlight: "6-10 hours daily",
+                    water: "Keep soil moist but not soggy",
+                    fertilizer: "High in potassium",
+                    harvest: "4-6 weeks after flowering"
+                }
+            },
+            {
+                name: "Lettuce",
+                type: "vegetable",
+                difficulty: "easy",
+                image: "https://images.pexels.com/photos/143577/pexels-photo-143577.jpeg",
+                guide: {
+                    soil: "Moist, rich in nitrogen",
+                    sunlight: "3-4 hours daily",
+                    water: "Regular, light watering",
+                    fertilizer: "Nitrogen-rich",
+                    harvest: "30-45 days after planting"
+                }
+            },
+            {
+                name: "Bell Peppers",
+                type: "vegetable",
+                difficulty: "medium",
+                image: "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg",
+                guide: {
+                    soil: "Well-draining, pH 6.0-6.8",
+                    sunlight: "6-8 hours daily",
+                    water: "Deep watering 1-2 times weekly",
+                    fertilizer: "Balanced, higher in phosphorus",
+                    harvest: "60-90 days after planting"
+                }
+            },
+            {
+                name: "Mint",
+                type: "herb",
+                difficulty: "easy",
+                image: "https://images.pexels.com/photos/56866/garden-mint-mint-leaves-fresh-56866.jpeg",
+                guide: {
+                    soil: "Moist, rich in organic matter",
+                    sunlight: "Partial shade to full sun",
+                    water: "Keep soil consistently moist",
+                    fertilizer: "Light feeding monthly",
+                    harvest: "As needed once established"
+                }
+            }
+        ];
+
+        function renderPlants(plantsToRender) {
+            const container = document.getElementById('plantsContainer');
+            container.innerHTML = '';
+            
+            plantsToRender.forEach(plant => {
+                const card = document.createElement('div');
+                card.className = 'plant-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg';
+                card.innerHTML = `
+                    <img src="${plant.image}" alt="${plant.name}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-semibold text-lg">${plant.name}</h3>
+                            <span class="px-2 py-1 text-xs rounded-full ${plant.difficulty === 'easy' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                                ${plant.difficulty} difficulty
+                            </span>
+                        </div>
+                        <div class="mt-2 text-sm">
+                            <p><span class="font-medium">Type:</span> ${plant.type}</p>
+                            <div class="mt-3">
+                                <button onclick="showGuide('${plant.name.replace("'", "\\'")}')" class="text-green-600 hover:underline">
+                                    <i class="fas fa-book-open mr-1"></i> View Growing Guide
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function showGuide(plantName) {
+            const plant = plants.find(p => p.name === plantName);
+            if (!plant) return;
+            
+            const guide = plant.guide;
+            const guideHTML = `
+                <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-semibold">${plantName} Growing Guide</h3>
+                            <button onclick="document.querySelector('.modal').remove()" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <img src="${plant.image}" alt="${plantName}" class="w-full h-48 object-cover mb-4 rounded">
+                        <div class="space-y-3">
+                            <div>
+                                <h4 class="font-medium">Soil Requirements:</h4>
+                                <p>${guide.soil}</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Sunlight Needs:</h4>
+                                <p>${guide.sunlight}</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Watering:</h4>
+                                <p>${guide.water}</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Fertilizer:</h4>
+                                <p>${guide.fertilizer}</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Harvesting:</h4>
+                                <p>${guide.harvest}</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-3 bg-green-50 rounded">
+                            <h4 class="font-medium">Small Space Tip:</h4>
+                            <p>${getSpaceTip(plantName)}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = guideHTML;
+            document.body.appendChild(modal);
+        }
+
+        function getSpaceTip(plantName) {
+            const tips = {
+                "Tomatoes": "Grow in 5-gallon buckets or hanging upside-down planters to save space.",
+                "Basil": "Perfect for windowsill gardens or small herb planters.",
+                "Strawberries": "Use vertical planters or hanging baskets to maximize yield.",
+                "Lettuce": "Grow in shallow containers or as part of a vertical garden system.",
+                "Bell Peppers": "Compact varieties can thrive in 3-gallon containers.",
+                "Mint": "Best grown in containers to prevent spreading (very invasive)."
+            };
+            return tips[plantName] || "This plant can be grown in containers or small garden spaces.";
+        }
+
+        // Initial render
+        renderPlants(plants);
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = plants.filter(plant => 
+                plant.name.toLowerCase().includes(searchTerm) ||
+                plant.type.toLowerCase().includes(searchTerm)
+            );
+            renderPlants(filtered);
+        });
+    </script>
+</body>
+</html>
